@@ -42,6 +42,7 @@ function setStatus(text) {
 }
 
 function buildWMSUrl() {
+
   const bounds = map.getBounds();
 
   const sw = maplibregl.MercatorCoordinate.fromLngLat({
@@ -57,28 +58,25 @@ function buildWMSUrl() {
   const worldSize = 40075016.68557849;
 
   const minX = (sw.x - 0.5) * worldSize;
-  const minY = (0.5 - ne.y) * worldSize;
   const maxX = (ne.x - 0.5) * worldSize;
-  const maxY = (0.5 - sw.y) * worldSize;
 
-  const width = Math.max(256, map.getCanvas().width);
-  const height = Math.max(256, map.getCanvas().height);
+  const minY = (ne.y - 0.5) * -worldSize;
+  const maxY = (sw.y - 0.5) * -worldSize;
 
-  const params = new URLSearchParams({
-    service: "WMS",
-    version: "1.3.0",
-    request: "GetMap",
-    layers: floodConfig.layerName,
-    styles: "",
-    format: "image/png",
-    transparent: "true",
-    crs: "EPSG:3857",
-    width: String(width),
-    height: String(height),
-    bbox: `${minX},${minY},${maxX},${maxY}`
-  });
+  const width = map.getCanvas().width;
+  const height = map.getCanvas().height;
 
-  return `${floodConfig.baseUrl}?${params.toString()}`;
+  return `${floodConfig.baseUrl}?service=WMS
+  &version=1.3.0
+  &request=GetMap
+  &layers=${floodConfig.layerName}
+  &styles=
+  &format=image/png
+  &transparent=true
+  &crs=EPSG:3857
+  &bbox=${minX},${minY},${maxX},${maxY}
+  &width=${width}
+  &height=${height}`.replace(/\s/g,'');
 }
 
 function getImageCoordinates() {
