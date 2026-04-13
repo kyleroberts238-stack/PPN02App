@@ -2,9 +2,26 @@
 
 const map = new maplibregl.Map({
   container: "map",
-  style: "https://demotiles.maplibre.org/style.json",
-  center: [-3.05, 53.23],
-  zoom: 14
+  style: {
+    version: 8,
+    sources: {
+      osm: {
+        type: "raster",
+        tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+        tileSize: 256,
+        attribution: "© OpenStreetMap contributors"
+      }
+    },
+    layers: [
+      {
+        id: "osm",
+        type: "raster",
+        source: "osm"
+      }
+    ]
+  },
+  center: [-3.0856, 53.2337],
+  zoom: 15.35
 });
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
@@ -113,6 +130,7 @@ function updateFloodLayer() {
 
   try {
     ensureFloodLayer(url, coords);
+
     if (map.getLayer(floodConfig.layerId)) {
       map.setLayoutProperty(floodConfig.layerId, "visibility", "visible");
       map.setPaintProperty(
@@ -125,24 +143,18 @@ function updateFloodLayer() {
     setStatus(
       `Zoom ${map.getZoom().toFixed(2)} • Centre ${map.getCenter().lng.toFixed(4)}, ${map.getCenter().lat.toFixed(4)}`
     );
+
     console.log("Flood WMS URL:", url);
   } catch (error) {
     console.error("Flood WMS update failed:", error);
-    setStatus(`Error loading flood layer`);
+    setStatus("Error loading flood layer");
   }
 }
 
-map.on("load", () => {
-  updateFloodLayer();
-});
+map.on("load", updateFloodLayer);
+map.on("moveend", updateFloodLayer);
 
-map.on("moveend", () => {
-  updateFloodLayer();
-});
-
-toggle.addEventListener("change", () => {
-  updateFloodLayer();
-});
+toggle.addEventListener("change", updateFloodLayer);
 
 opacitySlider.addEventListener("input", () => {
   if (map.getLayer(floodConfig.layerId)) {
