@@ -32,24 +32,21 @@ map.addControl(new maplibregl.NavigationControl(), "top-right");
 /**
  * Build a tiled WMS URL for MapLibre raster source usage.
  */
-function buildWmsTileUrl(baseUrl, layerName, extraParams = {}) {
-  const params = new URLSearchParams({
-    service: "WMS",
-    request: "GetMap",
-    version: "1.1.1",
-    layers: layerName,
-    styles: "",
-    format: "image/png",
-    transparent: "true",
-    srs: "EPSG:3857",
-    width: "256",
-    height: "256",
-    bbox: "{bbox-epsg-3857}",
-    ...extraParams
-  });
+function buildWmsTileUrl(baseUrl, layerName) {
 
-  return `${baseUrl}?${params.toString()}`;
-}
+  return `${baseUrl}?service=WMS
+&request=GetMap
+&version=1.1.1
+&layers=${layerName}
+&styles=
+&format=image/png
+&transparent=true
+&srs=EPSG:3857
+&width=256
+&height=256
+&bbox={bbox-epsg-3857}`.replace(/\s+/g,"");
+
+};
 
 /**
  * Build a WFS GetFeature URL returning GeoJSON.
@@ -148,7 +145,7 @@ function addWmsLayer(config) {
     type: "raster",
     source: config.sourceId,
     layout: {
-      visibility: "none"
+      visibility: "visible"
     },
     paint: {
       "raster-opacity": config.opacity,
