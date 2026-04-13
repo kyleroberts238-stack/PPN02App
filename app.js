@@ -27,7 +27,7 @@ const floodZonesConfig = {
   sourceId: "src-flood-zones",
   baseUrl: "https://environment.data.gov.uk/geoservices/datasets/04532375-a198-476e-985e-0579a0a11b47/wms",
   layerName: "Flood_Zones_2_3_Rivers_and_Sea",
-  opacity: 1
+  opacity: 0.9
 };
 
 function buildWmsTileUrl(baseUrl, layerName) {
