@@ -1,8 +1,8 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>PPN 002 Evidence Builder</title>
+  <title>Flood Zones WMS Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link
@@ -29,63 +29,33 @@
       top: 12px;
       left: 12px;
       z-index: 10;
-      width: 320px;
-      max-height: calc(100vh - 24px);
-      overflow: auto;
+      width: 260px;
       background: rgba(255, 255, 255, 0.96);
       border-radius: 10px;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
-      padding: 14px 14px 10px;
+      padding: 14px;
     }
 
     .panel h1 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    .panel p {
       margin: 0 0 12px;
-      font-size: 13px;
-      color: #444;
-      line-height: 1.4;
-    }
-
-    .layer-group {
-      margin-bottom: 14px;
-      border-top: 1px solid #e6e6e6;
-      padding-top: 10px;
-    }
-
-    .layer-group h2 {
-      margin: 0 0 8px;
-      font-size: 14px;
+      font-size: 18px;
     }
 
     .layer-row {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
-      font-size: 13px;
+      font-size: 14px;
+      margin-bottom: 10px;
     }
 
     .layer-row label {
-      flex: 1;
       cursor: pointer;
-    }
-
-    .opacity-wrap {
-      margin: 6px 0 10px 24px;
+      flex: 1;
     }
 
     .opacity-wrap input[type="range"] {
       width: 100%;
-    }
-
-    .note {
-      font-size: 12px;
-      color: #666;
-      line-height: 1.4;
     }
   </style>
 </head>
@@ -93,110 +63,23 @@
   <div id="map"></div>
 
   <div class="panel">
-    <h1>PPN 002 Evidence Builder</h1>
-    <p>Environmental context overlays for screening and evidence-building.</p>
+    <h1>WMS Test</h1>
 
-    <div class="layer-group">
-      <h2>Flood risk</h2>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-flood-zones" data-layer="flood-zones" />
-        <label for="toggle-flood-zones">Flood Map for Planning Flood Zones</label>
-      </div>
-      <div class="opacity-wrap">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value="0.65"
-          data-opacity="flood-zones"
-        />
-      </div>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-rofsw" data-layer="rofsw" />
-        <label for="toggle-rofsw">NaFRA2 Surface Water Flood Risk</label>
-      </div>
-      <div class="opacity-wrap">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value="0.65"
-          data-opacity="rofsw"
-        />
-      </div>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-hfm" data-layer="historic-flood-map" />
-        <label for="toggle-hfm">Historic Flood Map</label>
-      </div>
-      <div class="opacity-wrap">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value="0.65"
-          data-opacity="historic-flood-map"
-        />
-      </div>
+    <div class="layer-row">
+      <input type="checkbox" id="toggle-flood-zones" />
+      <label for="toggle-flood-zones">Flood Zones WMS</label>
     </div>
 
-    <div class="layer-group">
-      <h2>Biodiversity & designations</h2>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-phi" data-layer="priority-habitat" />
-        <label for="toggle-phi">Priority Habitat Inventory England</label>
-      </div>
-      <div class="opacity-wrap">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value="0.60"
-          data-opacity="priority-habitat"
-        />
-      </div>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-sssi-irz" data-layer="sssi-irz" />
-        <label for="toggle-sssi-irz">SSSI Impact Risk Zones</label>
-      </div>
-      <div class="opacity-wrap">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value="0.50"
-          data-opacity="sssi-irz"
-        />
-      </div>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-awi" data-layer="ancient-woodland" />
-        <label for="toggle-awi">Ancient Woodland England</label>
-      </div>
-      <div class="opacity-wrap">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value="0.35"
-          data-opacity="ancient-woodland"
-        />
-      </div>
+    <div class="opacity-wrap">
+      <input
+        type="range"
+        id="opacity-flood-zones"
+        min="0"
+        max="1"
+        step="0.05"
+        value="0.75"
+      />
     </div>
-
-    <p class="note">
-      These overlays are screening layers for environmental context. If a layer still does not draw, the most likely cause is that the WMS or WFS service expects a different internal layer name than the human-readable dataset title.
-    </p>
   </div>
 
   <script src="./app.js"></script>
