@@ -3,7 +3,11 @@
 const GEOSERVER_WMS =
   "https://maps.maphorizon.com/geoserver/maphorizon/wms";
 
-const FLOOD_LAYER = "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
+const FLOOD_LAYER =
+  "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
+
+const FLOOD_STYLE =
+  "Flood_Zones_2_3_Rivers_and_Sea_05_03_2025";
 
 const map = new maplibregl.Map({
   container: "map",
@@ -12,10 +16,12 @@ const map = new maplibregl.Map({
     sources: {
       osm: {
         type: "raster",
-        tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-        tileSize: 256,
-        attribution: "© OpenStreetMap contributors"
+        tiles: [
+          "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        ],
+        tileSize: 256
       },
+
       flood_wms: {
         type: "raster",
         tiles: [
@@ -24,7 +30,7 @@ const map = new maplibregl.Map({
             "&version=1.1.1" +
             "&request=GetMap" +
             "&layers=" + encodeURIComponent(FLOOD_LAYER) +
-            "&styles=" +
+            "&styles=" + encodeURIComponent(FLOOD_STYLE) +
             "&format=image/png" +
             "&transparent=true" +
             "&srs=EPSG:3857" +
@@ -35,12 +41,14 @@ const map = new maplibregl.Map({
         tileSize: 256
       }
     },
+
     layers: [
       {
         id: "osm",
         type: "raster",
         source: "osm"
       },
+
       {
         id: "flood",
         type: "raster",
@@ -51,8 +59,9 @@ const map = new maplibregl.Map({
       }
     ]
   },
+
   center: [-2.9659, 53.1884],
-  zoom: 13
+  zoom: 12
 });
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
