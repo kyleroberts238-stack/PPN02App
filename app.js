@@ -76,49 +76,61 @@ function buildWfsGeoJsonUrl(baseUrl, typeName, extraParams = {}) {
  * GetCapabilities advertises a different name than the human-readable dataset title.
  */
 const wmsConfigs = [
-  {
-    id: "flood-zones",
-    sourceId: "src-flood-zones",
-    baseUrl: "https://environment.data.gov.uk/spatialdata/flood-map-for-planning-flood-zones/wms",
-    layerName: "Flood Map for Planning Flood Zones",
-    opacity: 0.65
-  },
-  {
-    id: "rofsw",
-    sourceId: "src-rofsw",
-    baseUrl: "https://environment.data.gov.uk/spatialdata/nafra2-risk-of-flooding-from-surface-water/wms",
-    layerName: "NaFRA2 Risk of Flooding from Surface Water",
-    opacity: 0.65
-  },
-  {
-    id: "historic-flood-map",
-    sourceId: "src-historic-flood-map",
-    baseUrl: "https://environment.data.gov.uk/spatialdata/historic-flood-map/wms",
-    layerName: "Historic Flood Map",
-    opacity: 0.65
-  },
-  {
-    id: "priority-habitat",
-    sourceId: "src-priority-habitat",
-    baseUrl: "https://environment.data.gov.uk/spatialdata/priority-habitat-inventory-england/wms",
-    layerName: "Priority Habitat Inventory England",
-    opacity: 0.60
-  },
-  {
-    id: "sssi-irz",
-    sourceId: "src-sssi-irz",
-    baseUrl: "https://environment.data.gov.uk/spatialdata/sssi-impact-risk-zones-england/wms",
-    layerName: "SSSI Impact Risk Zones England",
-    opacity: 0.50
-  }
+
+{
+id: "flood-zones",
+sourceId: "src-flood-zones",
+baseUrl: "https://environment.data.gov.uk/spatialdata/flood-map-for-planning-flood-zones/wms",
+layerName: "Flood_Map_for_Planning_Flood_Zones",
+opacity: 0.7
+},
+
+{
+id: "rofsw",
+sourceId: "src-rofsw",
+baseUrl: "https://environment.data.gov.uk/spatialdata/nafra2-risk-of-flooding-from-surface-water/wms",
+layerName: "Risk_of_Flooding_from_Surface_Water",
+opacity: 0.7
+},
+
+{
+id: "historic-flood-map",
+sourceId: "src-historic-flood-map",
+baseUrl: "https://environment.data.gov.uk/spatialdata/historic-flood-map/wms",
+layerName: "Historic_Flood_Map",
+opacity: 0.7
+},
+
+{
+id: "priority-habitat",
+sourceId: "src-priority-habitat",
+baseUrl: "https://environment.data.gov.uk/spatialdata/priority-habitat-inventory-england/wms",
+layerName: "Priority_Habitat_Inventory_England",
+opacity: 0.6
+},
+
+{
+id: "sssi-irz",
+sourceId: "src-sssi-irz",
+baseUrl: "https://environment.data.gov.uk/spatialdata/sssi-impact-risk-zones-england/wms",
+layerName: "SSSI_Impact_Risk_Zones_England",
+opacity: 0.5
+}
+
 ];
 
-const wfsConfig = {
-  id: "ancient-woodland",
-  sourceId: "src-ancient-woodland",
-  baseUrl: "https://environment.data.gov.uk/spatialdata/ancient-woodland-england/wfs",
-  typeName: "Ancient Woodland England"
-};
+const wfsConfigs = [
+
+{
+id: "ancient-woodland",
+sourceId: "src-ancient-woodland",
+baseUrl: "https://environment.data.gov.uk/spatialdata/ancient-woodland-england/wfs",
+typeName: "Ancient_Woodland_England",
+color: "#145a32",
+opacity: 0.35
+}
+
+];
 
 function addWmsLayer(config) {
   const tileUrl = buildWmsTileUrl(config.baseUrl, config.layerName);
