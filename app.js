@@ -5,26 +5,19 @@ const map = new maplibregl.Map({
   container: "map",
   style: {
     version: 8,
-    sources: {
-      osm: {
-        type: "raster",
-        tiles: [
-          "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        ],
-        tileSize: 256,
-        attribution: "© OpenStreetMap contributors"
-      }
-    },
+    sources: {},
     layers: [
       {
-        id: "osm",
-        type: "raster",
-        source: "osm"
+        id: "background",
+        type: "background",
+        paint: {
+          "background-color": "#ffffff"
+        }
       }
     ]
   },
-  center: [-2.95, 53.35],
-  zoom: 10
+  center: [-3.06, 53.21],
+  zoom: 13
 });
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
@@ -34,7 +27,7 @@ const floodZonesConfig = {
   sourceId: "src-flood-zones",
   baseUrl: "https://environment.data.gov.uk/spatialdata/flood-map-for-planning-flood-zones/wms",
   layerName: "Flood_Map_for_Planning_Flood_Zones",
-  opacity: 0.75
+  opacity: 1
 };
 
 function buildWmsTileUrl(baseUrl, layerName) {
