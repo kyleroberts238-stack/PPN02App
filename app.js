@@ -3,7 +3,8 @@
 const GEOSERVER_WMS =
   "https://maps.maphorizon.com/geoserver/wms";
 
-const FLOOD_LAYER = "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
+const FLOOD_LAYER =
+  "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
 
 const map = new maplibregl.Map({
   container: "map",
@@ -64,3 +65,8 @@ const map = new maplibregl.Map({
   center: [-2.9659, 53.1884],
   zoom: 13
 });
+
+map.addControl(
+  new maplibregl.NavigationControl(),
+  "top-right"
+);
