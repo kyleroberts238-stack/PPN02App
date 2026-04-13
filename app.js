@@ -1,7 +1,7 @@
 /* global maplibregl */
 
 const GEOSERVER_WMS =
-  "https://maps.maphorizon.com/geoserver/wms";
+  "https://maps.maphorizon.com/geoserver/maphorizon/wms";
 
 const FLOOD_LAYER =
   "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
@@ -13,6 +13,7 @@ const map = new maplibregl.Map({
     version: 8,
 
     sources: {
+
       osm: {
         type: "raster",
         tiles: [
@@ -26,25 +27,29 @@ const map = new maplibregl.Map({
         type: "raster",
 
         tiles: [
+
           GEOSERVER_WMS +
-            "?service=WMS" +
-            "&version=1.1.1" +
-            "&request=GetMap" +
-            "&layers=" + FLOOD_LAYER +
-            "&styles=" +
-            "&format=image/png" +
-            "&transparent=true" +
-            "&srs=EPSG:3857" +
-            "&bbox={bbox-epsg-3857}" +
-            "&width=256" +
-            "&height=256"
+          "?service=WMS" +
+          "&version=1.1.1" +
+          "&request=GetMap" +
+          "&layers=" + FLOOD_LAYER +
+          "&styles=" +
+          "&format=image/png" +
+          "&transparent=true" +
+          "&srs=EPSG:3857" +
+          "&bbox={bbox-epsg-3857}" +
+          "&width=256" +
+          "&height=256"
+
         ],
 
         tileSize: 256
       }
+
     },
 
     layers: [
+
       {
         id: "osm",
         type: "raster",
@@ -59,11 +64,14 @@ const map = new maplibregl.Map({
           "raster-opacity": 0.7
         }
       }
+
     ]
+
   },
 
   center: [-2.9659, 53.1884],
   zoom: 13
+
 });
 
 map.addControl(
