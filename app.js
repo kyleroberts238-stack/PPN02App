@@ -1,7 +1,7 @@
 /* global maplibregl */
 
 const GEOSERVER_WMS =
-  "https://13.40.229.237:8080/geoserver/maphorizon/wms";
+  "https://maps.maphorizon.com/geoserver/maphorizon/wms";
 
 const FLOOD_LAYER = "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
 const FLOOD_STYLE = "Flood_Zones_2_3_Rivers_and_Sea_05_03_2025";
