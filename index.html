@@ -29,7 +29,7 @@
       top: 12px;
       left: 12px;
       z-index: 10;
-      width: 260px;
+      width: 280px;
       background: rgba(255, 255, 255, 0.96);
       border-radius: 10px;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
@@ -57,6 +57,13 @@
     .opacity-wrap input[type="range"] {
       width: 100%;
     }
+
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #444;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -66,7 +73,7 @@
     <h1>WMS Test</h1>
 
     <div class="layer-row">
-      <input type="checkbox" id="toggle-flood-zones" />
+      <input type="checkbox" id="toggle-flood-zones" checked />
       <label for="toggle-flood-zones">Flood Zones WMS</label>
     </div>
 
@@ -77,8 +84,12 @@
         min="0"
         max="1"
         step="0.05"
-        value="1"
+        value="0.75"
       />
+    </div>
+
+    <div class="status" id="status">
+      Waiting for map…
     </div>
   </div>
 
