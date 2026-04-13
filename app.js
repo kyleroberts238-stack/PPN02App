@@ -34,19 +34,19 @@ map.addControl(new maplibregl.NavigationControl(), "top-right");
  */
 function buildWmsTileUrl(baseUrl, layerName) {
 
-  return `${baseUrl}?service=WMS
+return `${baseUrl}?service=WMS
 &request=GetMap
-&version=1.1.1
+&version=1.3.0
 &layers=${layerName}
 &styles=
 &format=image/png
 &transparent=true
-&srs=EPSG:3857
+&crs=EPSG:3857
 &width=256
 &height=256
-&bbox={bbox-epsg-3857}`.replace(/\s+/g,"");
+&bbox={bbox-epsg-3857}`.replace(/\s+/g,'');
 
-};
+}
 
 /**
  * Build a WFS GetFeature URL returning GeoJSON.
@@ -55,11 +55,11 @@ function buildWmsTileUrl(baseUrl, layerName) {
 function buildWfsGeoJsonUrl(baseUrl, typeName, extraParams = {}) {
   const params = new URLSearchParams({
     service: "WFS",
-    version: "2.0.0",
+    version: "1.3.0",
     request: "GetFeature",
     typeNames: typeName,
     outputFormat: "application/json",
-    srsName: "EPSG:4326",
+    crsName: "EPSG:4326",
     ...extraParams
   });
 
