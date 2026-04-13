@@ -1,15 +1,16 @@
 /* global maplibregl */
 
 const GEOSERVER_WMS =
-  "https://maps.maphorizon.com/geoserver/maphorizon/wms";
+  "https://maps.maphorizon.com/geoserver/wms";
 
 const FLOOD_LAYER = "maphorizon:Flood_Zones_2_3_Rivers_and_Sea";
-const FLOOD_STYLE = "Flood_Zones_2_3_Rivers_and_Sea_05_03_2025";
 
 const map = new maplibregl.Map({
   container: "map",
+
   style: {
     version: 8,
+
     sources: {
       osm: {
         type: "raster",
@@ -22,13 +23,14 @@ const map = new maplibregl.Map({
 
       flood_wms: {
         type: "raster",
+
         tiles: [
           GEOSERVER_WMS +
             "?service=WMS" +
             "&version=1.1.1" +
             "&request=GetMap" +
-            "&layers=" + encodeURIComponent(FLOOD_LAYER) +
-            "&styles=" + encodeURIComponent(FLOOD_STYLE) +
+            "&layers=" + FLOOD_LAYER +
+            "&styles=" +
             "&format=image/png" +
             "&transparent=true" +
             "&srs=EPSG:3857" +
@@ -36,6 +38,7 @@ const map = new maplibregl.Map({
             "&width=256" +
             "&height=256"
         ],
+
         tileSize: 256
       }
     },
@@ -46,12 +49,13 @@ const map = new maplibregl.Map({
         type: "raster",
         source: "osm"
       },
+
       {
         id: "flood",
         type: "raster",
         source: "flood_wms",
         paint: {
-          "raster-opacity": 0.75
+          "raster-opacity": 0.7
         }
       }
     ]
@@ -59,43 +63,4 @@ const map = new maplibregl.Map({
 
   center: [-2.9659, 53.1884],
   zoom: 13
-});
-
-map.addControl(new maplibregl.NavigationControl(), "top-right");
-
-const toggle = document.getElementById("toggle-flood-zones");
-const slider = document.getElementById("opacity-flood-zones");
-const status = document.getElementById("status");
-
-function updateStatus() {
-  const centre = map.getCenter();
-  status.textContent =
-    "Zoom " +
-    map.getZoom().toFixed(2) +
-    " • Centre " +
-    centre.lng.toFixed(4) +
-    ", " +
-    centre.lat.toFixed(4);
-}
-
-map.on("load", () => {
-  updateStatus();
-});
-
-map.on("move", updateStatus);
-
-toggle.addEventListener("change", () => {
-  map.setLayoutProperty(
-    "flood",
-    "visibility",
-    toggle.checked ? "visible" : "none"
-  );
-});
-
-slider.addEventListener("input", () => {
-  map.setPaintProperty(
-    "flood",
-    "raster-opacity",
-    Number(slider.value)
-  );
 });
