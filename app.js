@@ -1,5 +1,4 @@
 /* global maplibregl */
-console.log("app.js loaded");
 
 const map = new maplibregl.Map({
   container: "map",
@@ -16,91 +15,96 @@ const map = new maplibregl.Map({
       }
     ]
   },
-  center: [-3.06, 53.21],
+  center: [-3.05, 53.23],
   zoom: 14
 });
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
 
-const floodZonesConfig = {
-  id: "flood-zones",
-  sourceId: "src-flood-zones",
-  baseUrl: "https://environment.data.gov.uk/geoservices/datasets/04532375-a198-476e-985e-0579a0a11b47/wms",
-  layerName: "Flood_Zones_2_3_Rivers_and_Sea",
-  opacity: 0.9
-};
+const wmsBase =
+  "https://environment.data.gov.uk/geoservices/datasets/04532375-a198-476e-985e-0579a0a11b47/wms";
 
-function buildWmsTileUrl(baseUrl, layerName) {
-  return `${baseUrl}?service=WMS&request=GetMap&version=1.3.0&layers=${encodeURIComponent(layerName)}&styles=&format=image/png&transparent=true&crs=EPSG:3857&width=256&height=256&bbox={bbox-epsg-3857}`;
-}
+function buildWMSUrl() {
+  const bounds = map.getBounds();
 
-function addFloodZonesLayer() {
-  if (map.getSource(floodZonesConfig.sourceId)) return;
-
-  const tileUrl = buildWmsTileUrl(
-    floodZonesConfig.baseUrl,
-    floodZonesConfig.layerName
-  );
-
-  console.log("Flood Zones WMS URL:", tileUrl);
-
-  map.addSource(floodZonesConfig.sourceId, {
-    type: "raster",
-    tiles: [tileUrl],
-    tileSize: 256
+  const sw = maplibregl.MercatorCoordinate.fromLngLat({
+    lng: bounds.getWest(),
+    lat: bounds.getSouth()
   });
 
-  map.addLayer({
-    id: floodZonesConfig.id,
-    type: "raster",
-    source: floodZonesConfig.sourceId,
-    layout: {
-      visibility: "none"
-    },
-    paint: {
-      "raster-opacity": floodZonesConfig.opacity,
-      "raster-fade-duration": 0
-    }
-  });
-}
-
-function setFloodZonesVisibility(visible) {
-  if (!map.getLayer(floodZonesConfig.id)) return;
-
-  map.setLayoutProperty(
-    floodZonesConfig.id,
-    "visibility",
-    visible ? "visible" : "none"
-  );
-}
-
-function setFloodZonesOpacity(opacity) {
-  if (!map.getLayer(floodZonesConfig.id)) return;
-
-  map.setPaintProperty(
-    floodZonesConfig.id,
-    "raster-opacity",
-    opacity
-  );
-}
-
-map.on("load", () => {
-  const toggle = document.getElementById("toggle-flood-zones");
-  const opacity = document.getElementById("opacity-flood-zones");
-
-  toggle.addEventListener("change", () => {
-    try {
-      addFloodZonesLayer();
-      setFloodZonesVisibility(toggle.checked);
-    } catch (error) {
-      console.error("Flood Zones layer failed:", error);
-      toggle.checked = false;
-    }
+  const ne = maplibregl.MercatorCoordinate.fromLngLat({
+    lng: bounds.getEast(),
+    lat: bounds.getNorth()
   });
 
-  opacity.addEventListener("input", () => {
-    setFloodZonesOpacity(Number(opacity.value));
+  const worldSize = 40075016.68557849;
+
+  const minX = (sw.x - 0.5) * worldSize;
+  const minY = (0.5 - ne.y) * worldSize;
+  const maxX = (ne.x - 0.5) * worldSize;
+  const maxY = (0.5 - sw.y) * worldSize;
+
+  const width = map.getCanvas().width;
+  const height = map.getCanvas().height;
+
+  return `${wmsBase}?service=WMS&version=1.3.0&request=GetMap&layers=Flood_Zones_2_3_Rivers_and_Sea&styles=&format=image/png&transparent=true&crs=EPSG:3857&width=${width}&height=${height}&bbox=${minX},${minY},${maxX},${maxY}`;
+}
+
+function updateFloodLayer() {
+  const url = buildWMSUrl();
+
+  const bounds = map.getBounds();
+
+  const coords = [
+    [bounds.getWest(), bounds.getNorth()],
+    [bounds.getEast(), bounds.getNorth()],
+    [bounds.getEast(), bounds.getSouth()],
+    [bounds.getWest(), bounds.getSouth()]
+  ];
+
+  if (map.getSource("flood-image")) {
+    map.getSource("flood-image").updateImage({
+      url,
+      coordinates: coords
+    });
+  } else {
+    map.addSource("flood-image", {
+      type: "image",
+      url,
+      coordinates: coords
+    });
+
+    map.addLayer({
+      id: "flood-image-layer",
+      type: "raster",
+      source: "flood-image",
+      paint: {
+        "raster-opacity": 0.8
+      }
+    });
+  }
+}
+
+map.on("load", updateFloodLayer);
+
+map.on("moveend", updateFloodLayer);
+
+document
+  .getElementById("toggle-flood-zones")
+  .addEventListener("change", e => {
+    map.setLayoutProperty(
+      "flood-image-layer",
+      "visibility",
+      e.target.checked ? "visible" : "none"
+    );
   });
 
-  console.log("Map ready for Flood Zones WMS test.");
-});
+document
+  .getElementById("opacity-flood-zones")
+  .addEventListener("input", e => {
+    map.setPaintProperty(
+      "flood-image-layer",
+      "raster-opacity",
+      Number(e.target.value)
+    );
+  });
