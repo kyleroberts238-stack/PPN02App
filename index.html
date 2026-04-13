@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -97,111 +97,105 @@
     <p>Environmental context overlays for screening and evidence-building.</p>
 
     <div class="layer-group">
-  <h2>Flood risk</h2>
+      <h2>Flood risk</h2>
 
-  <div class="layer-row">
-    <input type="checkbox" id="toggle-flood-zones" data-layer="flood-zones" />
-    <label for="toggle-flood-zones">Flood Map for Planning Flood Zones</label>
-  </div>
-  <div class="opacity-wrap">
-    <input type="range" min="0" max="1" step="0.05" value="0.65" data-opacity="flood-zones" />
-  </div>
+      <div class="layer-row">
+        <input type="checkbox" id="toggle-flood-zones" data-layer="flood-zones" />
+        <label for="toggle-flood-zones">Flood Map for Planning Flood Zones</label>
+      </div>
+      <div class="opacity-wrap">
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.65"
+          data-opacity="flood-zones"
+        />
+      </div>
 
-  <div class="layer-row">
-    <input type="checkbox" id="toggle-rofsw" data-layer="rofsw" />
-    <label for="toggle-rofsw">NaFRA2 Surface Water Flood Risk</label>
-  </div>
-  <div class="opacity-wrap">
-    <input type="range" min="0" max="1" step="0.05" value="0.65" data-opacity="rofsw" />
-  </div>
+      <div class="layer-row">
+        <input type="checkbox" id="toggle-rofsw" data-layer="rofsw" />
+        <label for="toggle-rofsw">NaFRA2 Surface Water Flood Risk</label>
+      </div>
+      <div class="opacity-wrap">
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.65"
+          data-opacity="rofsw"
+        />
+      </div>
 
-  <div class="layer-row">
-    <input type="checkbox" id="toggle-hfm" data-layer="historic-flood-map" />
-    <label for="toggle-hfm">Historic Flood Map</label>
-  </div>
-  <div class="opacity-wrap">
-    <input type="range" min="0" max="1" step="0.05" value="0.65" data-opacity="historic-flood-map" />
-  </div>
-</div>
-
-<div class="layer-group">
-  <h2>Biodiversity & designations</h2>
-
-  <div class="layer-row">
-    <input type="checkbox" id="toggle-phi" data-layer="priority-habitat" />
-    <label for="toggle-phi">Priority Habitat Inventory England</label>
-  </div>
-  <div class="opacity-wrap">
-    <input type="range" min="0" max="1" step="0.05" value="0.6" data-opacity="priority-habitat" />
-  </div>
-
-  <div class="layer-row">
-    <input type="checkbox" id="toggle-sssi-irz" data-layer="sssi-irz" />
-    <label for="toggle-sssi-irz">SSSI Impact Risk Zones</label>
-  </div>
-  <div class="opacity-wrap">
-    <input type="range" min="0" max="1" step="0.05" value="0.5" data-opacity="sssi-irz" />
-  </div>
-
-  <div class="layer-row">
-    <input type="checkbox" id="toggle-awi" data-layer="ancient-woodland" />
-    <label for="toggle-awi">Ancient Woodland England</label>
-  </div>
-  <div class="opacity-wrap">
-    <input type="range" min="0" max="1" step="0.05" value="0.35" data-opacity="ancient-woodland" />
-  </div>
-</div>
+      <div class="layer-row">
+        <input type="checkbox" id="toggle-hfm" data-layer="historic-flood-map" />
+        <label for="toggle-hfm">Historic Flood Map</label>
+      </div>
+      <div class="opacity-wrap">
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.65"
+          data-opacity="historic-flood-map"
+        />
+      </div>
+    </div>
 
     <div class="layer-group">
       <h2>Biodiversity & designations</h2>
 
       <div class="layer-row">
         <input type="checkbox" id="toggle-phi" data-layer="priority-habitat" />
-        <label for="toggle-phi">Priority Habitat Inventory</label>
+        <label for="toggle-phi">Priority Habitat Inventory England</label>
       </div>
       <div class="opacity-wrap">
-        <input type="range" min="0" max="1" step="0.05" value="0.6" data-opacity="priority-habitat" />
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.60"
+          data-opacity="priority-habitat"
+        />
       </div>
 
       <div class="layer-row">
-        <input type="checkbox" id="toggle-sssi" data-layer="sssi" />
-        <label for="toggle-sssi">SSSI</label>
+        <input type="checkbox" id="toggle-sssi-irz" data-layer="sssi-irz" />
+        <label for="toggle-sssi-irz">SSSI Impact Risk Zones</label>
       </div>
       <div class="opacity-wrap">
-        <input type="range" min="0" max="1" step="0.05" value="0.6" data-opacity="sssi" />
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.50"
+          data-opacity="sssi-irz"
+        />
       </div>
 
       <div class="layer-row">
         <input type="checkbox" id="toggle-awi" data-layer="ancient-woodland" />
-        <label for="toggle-awi">Ancient Woodland</label>
+        <label for="toggle-awi">Ancient Woodland England</label>
       </div>
       <div class="opacity-wrap">
-        <input type="range" min="0" max="1" step="0.05" value="0.6" data-opacity="ancient-woodland" />
-      </div>
-    </div>
-
-    <div class="layer-group">
-      <h2>Air quality</h2>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-ukair-no2" data-layer="ukair-no2" />
-        <label for="toggle-ukair-no2">UK-AIR NO₂</label>
-      </div>
-      <div class="opacity-wrap">
-        <input type="range" min="0" max="1" step="0.05" value="0.55" data-opacity="ukair-no2" />
-      </div>
-
-      <div class="layer-row">
-        <input type="checkbox" id="toggle-ukair-pm25" data-layer="ukair-pm25" />
-        <label for="toggle-ukair-pm25">UK-AIR PM2.5</label>
-      </div>
-      <div class="opacity-wrap">
-        <input type="range" min="0" max="1" step="0.05" value="0.55" data-opacity="ukair-pm25" />
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.35"
+          data-opacity="ancient-woodland"
+        />
       </div>
     </div>
 
     <p class="note">
-      Some WMS services use provider-specific layer names. The URLs below are wired in, but you may need to inspect each service’s GetCapabilities document and adjust the `layers` value if a provider changes naming. The listed datasets are published by the Environment Agency, Natural England, and UK-AIR/DEFRA. 
+      These overlays are screening layers for environmental context. If a layer still does not draw, the most likely cause is that the WMS or WFS service expects a different internal layer name than the human-readable dataset title.
     </p>
   </div>
 
